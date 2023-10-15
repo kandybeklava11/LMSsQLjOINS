@@ -1,0 +1,35 @@
+SELECT DISTINCT city FROM clients;
+
+SELECT * FROM workers WHERE birth_year BETWEEN 1950 AND 1960;
+
+SELECT name, country FROM suppliers WHERE country = 'Франция';
+
+SELECT name, address, country FROM clients WHERE country != 'Испания' AND name LIKE 'A%';
+
+SELECT * FROM clients WHERE postal_code = '';
+
+SELECT * FROM clients WHERE city = 'Лондон' LIMIT 2;
+
+SELECT name, birth_year FROM workers WHERE surname LIKE '____';
+
+SELECT country, COUNT(*) AS supplier_count FROM suppliers GROUP BY country;
+
+SELECT country, COUNT(*) AS supplier_count FROM suppliers GROUP BY country HAVING COUNT(*) > 1;
+
+SELECT category, SUM(price) AS total_price FROM products GROUP BY category;
+
+SELECT name, MIN(price) AS min_price FROM products WHERE category IN (6, 8) GROUP BY name;
+
+SELECT p.name AS product_name, s.name AS supplier_name
+FROM products AS p
+JOIN suppliers AS s ON p.supplier_id = s.id
+ORDER BY p.name;
+
+SELECT s.name AS supplier_name, COUNT(p.id) AS product_count
+FROM suppliers AS s
+JOIN products AS p ON s.id = p.supplier_id
+GROUP BY s.name;
+
+SELECT c.name AS customer_name, w.name AS worker_name, w.delivery_service
+FROM clients AS c
+JOIN workers AS w ON c.worker_id = w.id;
